@@ -1,32 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { TaskContext } from '../../context/taskContext';
 
 export const TaskList = () => {
-  const taskListToShow = [
-    {
-      name: "Primera tarea",
-      description: "descripcion primera tarea",
-      completed: false,
-    },
-    {
-      name: "2 tarea",
-      description: "descripcion tarea 2",
-      completed: true,
-    },
-    {
-      name: "3 tarea",
-      description: "descripcion tarea 3",
-      completed: false,
-    },
-  ];
-
-  const [taskListState, setTaskListState] = useState(taskListToShow);
-  console.log("🚀 - TaskList - taskListState:", taskListState);
+  const { tasks, removeTask, updateTask } = useContext(TaskContext);
+  console.log("🚀 - TaskList - tasks:", tasks)  
 
   return (
     <div>
       <h3>Lista de tareas</h3>
       <ol>
-        {taskListState.map((iten, index) => (
+        {tasks.map((iten, index) => (
           <div key={index}>
             {iten.name} -{iten.completed ? "✅" : "🚫"}
           </div>
