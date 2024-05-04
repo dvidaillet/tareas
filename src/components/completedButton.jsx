@@ -13,3 +13,12 @@ export const CompleteButton = styled.button`
      cursor: not-allowed; 
   `}
 `;
+
+export const DeleteButton = styled.button`
+  padding: 6px 12px;
+  background-color: tomato;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+`;

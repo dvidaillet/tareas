@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CompleteButton } from "./completedButton";
+import { CompleteButton, DeleteButton } from "./completedButton";
 
 // Definir los estilos de la tabla y sus celdas
 const Table = styled.table`
@@ -17,15 +17,6 @@ const Td = styled.td`
   padding: 8px;
   border: 1px solid #ddd;
   text-align: center;
-`;
-
-const DeleteButton = styled.button`
-  padding: 6px 12px;
-  background-color: tomato;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  border-radius: 3px;
 `;
 
 export const TaskDataTable = ({ data, onEdit, onDelete }) => {

@@ -1,10 +1,53 @@
 import React, { useContext, useState } from "react";
+import styled from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { v4 as uuidv4 } from 'uuid';
-import { Navigate } from 'react-router-dom';
+import { v4 as uuidv4 } from "uuid";
+import { Navigate } from "react-router-dom";
 import { TaskContext } from "../../context/taskContext";
 import { ErrorMessage } from "../../../../components/ErrorMessaje";
+import {
+  CompleteButton,
+  DeleteButton,
+} from "../../../../components/completedButton";
+
+const Form = styled.form`
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+const Input = styled.input`
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+`;
+
+const CheckboxLabel = styled.label`
+  margin-left: 5px;
+  font-weight: normal;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+`;
 
 export const TaskForm = () => {
   const { addTask } = useContext(TaskContext);
@@ -28,20 +71,25 @@ export const TaskForm = () => {
       const taskWithId = { ...values, id: uuidv4() }; // Asignar un ID aleatorio
       addTask(taskWithId);
       resetForm(); // Resetea el formulario después de enviar
-      setRedirect(true)
+      setRedirect(true);
     },
   });
 
-   // Si 'redirect' es true, redirigir al usuario a la página 'add-task'
-   if (redirect) {
+  // Si 'redirect' es true, redirigir al usuario a la página 'add-task'
+  if (redirect) {
     return <Navigate to="/" />;
   }
 
+  const handleCancel = () => {
+    formik.setErrors(null); // Restablece los errores a un objeto vacío
+    formik.resetForm();
+  };
+
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <div>
-        <label htmlFor="name">Nombre:</label>
-        <input
+    <Form onSubmit={formik.handleSubmit}>
+      <FormGroup>
+        <Label htmlFor="name">Nombre:</Label>
+        <Input
           type="text"
           id="name"
           name="name"
@@ -52,10 +100,10 @@ export const TaskForm = () => {
         {formik.touched.name && formik.errors.name ? (
           <ErrorMessage>{formik.errors.name}</ErrorMessage>
         ) : null}
-      </div>
-      <div>
-        <label htmlFor="description">Descripción:</label>
-        <input
+      </FormGroup>
+      <FormGroup>
+        <Label htmlFor="description">Descripción:</Label>
+        <Input
           type="text"
           id="description"
           name="description"
@@ -66,18 +114,25 @@ export const TaskForm = () => {
         {formik.touched.description && formik.errors.description ? (
           <ErrorMessage>{formik.errors.description}</ErrorMessage>
         ) : null}
-      </div>
-      <div>
-        <label htmlFor="completed">Completado:</label>
-        <input
+      </FormGroup>
+      <FormGroup>
+        <CheckboxLabel htmlFor="completed">Completado:</CheckboxLabel>
+        <Input
           type="checkbox"
           id="completed"
           name="completed"
           checked={formik.values.completed}
           onChange={formik.handleChange}
         />
-      </div>
-      <button type="submit">Agregar Tarea</button>
-    </form>
+      </FormGroup>
+      <ButtonContainer>
+        <CompleteButton complete={false} type="submit">
+          Add Task
+        </CompleteButton>
+        <DeleteButton type="reset" onClick={handleCancel}>
+          Cancel
+        </DeleteButton>
+      </ButtonContainer>
+    </Form>
   );
 };
