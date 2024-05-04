@@ -20,4 +20,4 @@ La aplicación simula la conexión a una API utilizando JSON Server. Para inicia
 3. Ejecuta el siguiente comando:
 
 ```bash
-json-server --watch db.json --port 3001
+npx json-server --watch db.json --port 3001
