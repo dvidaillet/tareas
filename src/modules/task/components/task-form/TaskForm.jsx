@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { v4 as uuidv4 } from 'uuid';
+import { Navigate } from 'react-router-dom';
 import { TaskContext } from "../../context/taskContext";
 
 export const TaskForm = () => {
   const { addTask } = useContext(TaskContext);
+  const [redirect, setRedirect] = useState(false);
 
   // Define el esquema de validación usando Yup
   const validationSchema = Yup.object().shape({
@@ -21,10 +24,17 @@ export const TaskForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
-      addTask(values);
+      const taskWithId = { ...values, id: uuidv4() }; // Asignar un ID aleatorio
+      addTask(taskWithId);
       resetForm(); // Resetea el formulario después de enviar
+      setRedirect(true)
     },
   });
+
+   // Si 'redirect' es true, redirigir al usuario a la página 'add-task'
+   if (redirect) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <form onSubmit={formik.handleSubmit}>
