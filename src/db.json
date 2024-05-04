@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "name": "Comprar alimentos",
+      "description": "Comprar leche, pan y huevos",
+      "completed": false
+    },
+    {
+      "id": 2,
+      "name": "Llamar al médico",
+      "description": "Agendar cita con el médico de cabecera",
+      "completed": true
+    },
+    {
+      "id": 3,
+      "name": "Enviar reporte",
+      "description": "Enviar el reporte de ventas del último mes",
+      "completed": false
+    }
+  ]
+}

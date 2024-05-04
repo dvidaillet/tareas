@@ -1,12 +1,13 @@
 import React from "react";
-import { TaskList } from "../components/task-list/TaskList";
+import { TaskContainer } from "../components/task-container/TaskContainer";
+import { StyledContainer } from "../../../components/container";
 
 const HomePage = () => {
   return (
-    <>
+    <StyledContainer>
       <h1>Home Page</h1>
-      <TaskList />
-    </>
+      <TaskContainer />
+    </StyledContainer>
   );
 };
 
