@@ -30,10 +30,10 @@ export const TaskProvider = ({ children }) => {
     taskService
       .deleteTask(index)
       .then((data) => {
-        setTasks(data); // Establecer los datos obtenidos en el estado
+        setTasks(data);
       })
       .catch((error) => {
-        console.error("Error al obtener tareas:", error);
+        console.error("Error al eliminar la tarea:", error);
       });
   };
 
@@ -44,10 +44,10 @@ export const TaskProvider = ({ children }) => {
     taskService
       .updateTask(index, updateTasks)
       .then((data) => {
-        setTasks(data); // Establecer los datos obtenidos en el estado
+        setTasks(data);
       })
       .catch((error) => {
-        console.error("Error al obtener tareas:", error);
+        console.error("Error al altualizar la tarea:", error);
       });
   };
 
