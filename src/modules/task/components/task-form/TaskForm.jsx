@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from "react";
+import { TaskContext } from "../../context/taskContext";
 
-function TaskForm({ addTask }) {
+export const TaskForm = () => {
+  const { addTask } = useContext(TaskContext);
   const [task, setTask] = useState({
-    name: '',
-    description: '',
-    completed: false
+    name: "",
+    description: "",
+    completed: false,
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setTask({
+    addTask({
       ...task,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     addTask(task);
-    setTask({ name: '', description: '', completed: false }); // Reset form
+    setTask({ name: "", description: "", completed: false }); // Reset form
   };
 
   return (
@@ -56,6 +58,4 @@ function TaskForm({ addTask }) {
       <button type="submit">Agregar Tarea</button>
     </form>
   );
-}
-
-export default TaskForm;
+};

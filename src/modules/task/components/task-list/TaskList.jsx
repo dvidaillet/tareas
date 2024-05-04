@@ -1,13 +1,22 @@
-import React, { useContext } from "react";
-import { TaskContext } from '../../context/taskContext';
+import React, { useContext, useState } from "react";
+import { TaskContext } from "../../context/taskContext";
+import { TaskForm } from "../task-form/TaskForm";
 
 export const TaskList = () => {
-  const { tasks, removeTask, updateTask } = useContext(TaskContext);
-  console.log("🚀 - TaskList - tasks:", tasks)  
+  const { tasks } = useContext(TaskContext);
+  const [formActive, setFormActive] = useState(false);
+
+  const handleAddTask = () => setFormActive(true);
 
   return (
-    <div>
+    <>
       <h3>Lista de tareas</h3>
+      {!formActive && (
+        <button onClick={handleAddTask} disabled={formActive}>
+          Add Task
+        </button>
+      )}
+      {formActive && <TaskForm />}
       <ol>
         {tasks.map((iten, index) => (
           <div key={index}>
@@ -15,6 +24,6 @@ export const TaskList = () => {
           </div>
         ))}
       </ol>
-    </div>
+    </>
   );
 };
