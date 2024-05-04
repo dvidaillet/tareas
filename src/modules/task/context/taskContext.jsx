@@ -39,13 +39,16 @@ export const TaskProvider = ({ children }) => {
 
   // Función para actualizar tareas
   const updateTask = (index) => {
-    const newTasks = tasks.map((task) => {
-      if (task.id === index) {
-        task.completed = true;
-      }
-      return task;
-    });
-    setTasks(newTasks);
+    const updateTasks = tasks.find((task) => task.id === index);
+    updateTasks.completed = true;
+    taskService
+      .updateTask(index, updateTasks)
+      .then((data) => {
+        setTasks(data); // Establecer los datos obtenidos en el estado
+      })
+      .catch((error) => {
+        console.error("Error al obtener tareas:", error);
+      });
   };
 
   return (
