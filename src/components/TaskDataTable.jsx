@@ -6,6 +6,7 @@ import { CompleteButton, DeleteButton } from "./completedButton";
 const Table = styled.table`
   width: 75%;
   border-collapse: collapse;
+  margin-top: 1rem;
 `;
 
 const Th = styled.th`
