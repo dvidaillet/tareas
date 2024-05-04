@@ -22,7 +22,14 @@ export const TaskProvider = ({ children }) => {
 
   // Función para agregar tareas
   const addTask = (task) => {
-    setTasks([...tasks, task]);
+    taskService
+      .createTask(task)
+      .then((data) => {
+        setTasks(data);
+      })
+      .catch((error) => {
+        console.error("Error al altualizar la tarea:", error);
+      });
   };
 
   // Función para eliminar tareas
