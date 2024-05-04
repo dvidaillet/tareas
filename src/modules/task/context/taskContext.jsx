@@ -1,31 +1,24 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
+import taskService from "../services/taskService";
 
 // Crear el contexto
 export const TaskContext = createContext();
 
 // Crear el proveedor del contexto
 export const TaskProvider = ({ children }) => {
-  const taskListToShow = [
-    {
-      id: "21d2s1ds",
-      name: "Primera tarea",
-      description: "descripcion primera tarea",
-      completed: false,
-    },
-    {
-      id: "9sd89s8d",
-      name: "Segunda tarea",
-      description: "descripcion tarea 2",
-      completed: true,
-    },
-    {
-      id: "4f5d4f5d4",
-      name: "Tercera tarea",
-      description: "descripcion tarea 3",
-      completed: false,
-    },
-  ];
-  const [tasks, setTasks] = useState(taskListToShow);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    // Llamar a la función fetchTasks para obtener los datos de las tareas
+    taskService
+      .fetchTasks()
+      .then((data) => {
+        setTasks(data); // Establecer los datos obtenidos en el estado
+      })
+      .catch((error) => {
+        console.error("Error al obtener tareas:", error);
+      });
+  }, []);
 
   // Función para agregar tareas
   const addTask = (task) => {
@@ -48,8 +41,6 @@ export const TaskProvider = ({ children }) => {
     });
     setTasks(newTasks);
   };
-
-  
 
   return (
     <TaskContext.Provider value={{ tasks, addTask, removeTask, updateTask }}>
