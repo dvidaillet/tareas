@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { v4 as uuidv4 } from "uuid";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { TaskContext } from "../../context/taskContext";
 import { ErrorMessage } from "../../../../components/ErrorMessaje";
 import {
@@ -47,6 +47,7 @@ const ButtonContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
+  margin-bottom: 0.5rem;
 `;
 
 export const TaskForm = () => {
@@ -81,7 +82,6 @@ export const TaskForm = () => {
   }
 
   const handleCancel = () => {
-    formik.setErrors(null); // Restablece los errores a un objeto vacío
     formik.resetForm();
   };
 
@@ -117,7 +117,7 @@ export const TaskForm = () => {
       </FormGroup>
       <FormGroup>
         <CheckboxLabel htmlFor="completed">Completado:</CheckboxLabel>
-        <Input
+        <input
           type="checkbox"
           id="completed"
           name="completed"
@@ -133,6 +133,7 @@ export const TaskForm = () => {
           Cancel
         </DeleteButton>
       </ButtonContainer>
+      <Link to="/">Ir a la página principal</Link>
     </Form>
   );
 };
