@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { TaskContext } from "../../context/taskContext";
 import { TaskDataTable } from "../../../../components/TaskDataTable";
 import { ErrorMessage } from "../../../../components/ErrorMessaje";
+import { CompleteButton } from "../../../../components/completedButton";
 
 export const TaskContainer = () => {
   const { tasks, removeTask, updateTask } = useContext(TaskContext);
@@ -31,9 +32,13 @@ export const TaskContainer = () => {
     <>
       <h2>Lista de tareas</h2>
       {!formActive && (
-        <button onClick={handleButtonClick} disabled={formActive}>
+        <CompleteButton
+          complete={false}
+          onClick={handleButtonClick}
+          disabled={formActive}
+        >
           Add Task
-        </button>
+        </CompleteButton>
       )}
       {tasks.length === 0 ? (
         <ErrorMessage color="red">No hay elementos</ErrorMessage>
