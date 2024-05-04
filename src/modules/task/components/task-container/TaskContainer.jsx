@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 import { TaskContext } from "../../context/taskContext";
 import { TaskDataTable } from "../../../../components/TaskDataTable";
+import { ErrorMessage } from "../../../../components/ErrorMessaje";
 
 export const TaskContainer = () => {
   const { tasks, removeTask, updateTask } = useContext(TaskContext);
@@ -28,17 +29,21 @@ export const TaskContainer = () => {
   };
   return (
     <>
-      <h3>Lista de tareas</h3>
+      <h2>Lista de tareas</h2>
       {!formActive && (
         <button onClick={handleButtonClick} disabled={formActive}>
           Add Task
         </button>
       )}
-      <TaskDataTable
-        data={tasks}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      ></TaskDataTable>
+      {tasks.length === 0 ? (
+        <ErrorMessage color="red">No hay elementos</ErrorMessage>
+      ) : (
+        <TaskDataTable
+          data={tasks}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        ></TaskDataTable>
+      )}
     </>
   );
 };

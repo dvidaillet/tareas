@@ -5,7 +5,6 @@ import { StyledContainer } from "../../../components/container";
 const HomePage = () => {
   return (
     <StyledContainer>
-      <h1>Home Page</h1>
       <TaskContainer />
     </StyledContainer>
   );

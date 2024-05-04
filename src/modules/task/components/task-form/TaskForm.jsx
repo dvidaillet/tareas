@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { v4 as uuidv4 } from 'uuid';
 import { Navigate } from 'react-router-dom';
 import { TaskContext } from "../../context/taskContext";
+import { ErrorMessage } from "../../../../components/ErrorMessaje";
 
 export const TaskForm = () => {
   const { addTask } = useContext(TaskContext);
@@ -49,7 +50,7 @@ export const TaskForm = () => {
           onBlur={formik.handleBlur}
         />
         {formik.touched.name && formik.errors.name ? (
-          <div>{formik.errors.name}</div>
+          <ErrorMessage>{formik.errors.name}</ErrorMessage>
         ) : null}
       </div>
       <div>
@@ -63,7 +64,7 @@ export const TaskForm = () => {
           onBlur={formik.handleBlur}
         />
         {formik.touched.description && formik.errors.description ? (
-          <div>{formik.errors.description}</div>
+          <ErrorMessage>{formik.errors.description}</ErrorMessage>
         ) : null}
       </div>
       <div>
