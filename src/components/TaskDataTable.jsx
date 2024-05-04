@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {CompleteButton} from './completedButton'
+import { CompleteButton } from "./completedButton";
 
 // Definir los estilos de la tabla y sus celdas
 const Table = styled.table`
@@ -40,22 +40,28 @@ export const TaskDataTable = ({ data, onEdit, onDelete }) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((item) => (
-          <tr key={item.id}>
-            <Td>
-              {item.name} - {item.completed ? "✅" : "🚫"}
-            </Td>
-            <Td>{item.description}</Td>
-            <Td>
-              <CompleteButton completed={item.completed} onClick={() => onEdit(item.id)}>
-                completar
-              </CompleteButton>
-            </Td>
-            <Td>
-              <DeleteButton onClick={() => onDelete(item.id)}>Eliminar</DeleteButton>
-            </Td>
-          </tr>
-        ))}
+        {Array.isArray(data) &&
+          data.map((item) => (
+            <tr key={item.id}>
+              <Td>
+                {item.name} - {item.completed ? "✅" : "🚫"}
+              </Td>
+              <Td>{item.description}</Td>
+              <Td>
+                <CompleteButton
+                  completed={item.completed}
+                  onClick={() => onEdit(item.id)}
+                >
+                  completar
+                </CompleteButton>
+              </Td>
+              <Td>
+                <DeleteButton onClick={() => onDelete(item.id)}>
+                  Eliminar
+                </DeleteButton>
+              </Td>
+            </tr>
+          ))}
       </tbody>
     </Table>
   );

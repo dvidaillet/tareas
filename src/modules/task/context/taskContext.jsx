@@ -18,7 +18,7 @@ export const TaskProvider = ({ children }) => {
       .catch((error) => {
         console.error("Error al obtener tareas:", error);
       });
-  }, []);
+  }, [tasks]);
 
   // Función para agregar tareas
   const addTask = (task) => {
@@ -27,8 +27,14 @@ export const TaskProvider = ({ children }) => {
 
   // Función para eliminar tareas
   const removeTask = (index) => {
-    const newTasks = tasks.filter((task) => task.id !== index);
-    setTasks(newTasks);
+    taskService
+      .deleteTask(index)
+      .then((data) => {
+        setTasks(data); // Establecer los datos obtenidos en el estado
+      })
+      .catch((error) => {
+        console.error("Error al obtener tareas:", error);
+      });
   };
 
   // Función para actualizar tareas
